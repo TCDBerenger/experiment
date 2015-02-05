@@ -3,7 +3,8 @@ MAINTAINER Roman Atachiants "atachiar@scss.tcd.ie"
 
 # Extract & Install
 COPY . /app
-RUN cd /app; npm install
+#RUN cd /app; npm install
+RUN cd /app
 
 # Http Port
 EXPOSE 80
