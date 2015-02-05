@@ -41,7 +41,7 @@ var opts = nomnom.opts({
 	},
 	'solr-host': {
 		full: 'solr-host',
-		default: 'api.misakai.com',
+		default: process.env.SOLR_HOST,
 		help: 'solr hostname',
 		metavar: 'HOST'
 	},
