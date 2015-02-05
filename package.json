@@ -3,7 +3,7 @@
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
-      "nomnom": "> 1.x.x",
+      "nomnom": "1.8.0",
       "uglify-js": "> 1.x.x"
   }
   , "engine": {
