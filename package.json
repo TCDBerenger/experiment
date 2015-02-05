@@ -10,5 +10,5 @@
     "node": ">= 0.6.x"
   }
   , "bin": { "lilbro": "bin/lilbro" }
-  , "main": "lib/lilbro"
+  , "main": "bin/lilbro"
 }

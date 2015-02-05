@@ -10,4 +10,4 @@ RUN cd /app
 EXPOSE 80
 
 
-CMD ["node", "/app/lib/lilbro.js"]
+CMD ["node", "/app/bin/lilbro"]
