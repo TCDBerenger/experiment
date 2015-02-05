@@ -59,7 +59,7 @@ var opts = nomnom.opts({
 	},
 	'writer': {
 		file: 'writer',
-		default: 'file',
+		default: 'solr',
 		metavar: '[' + writers.join('|') + ']',
 		choices: writers,
 		help: 'method to use for writing events'
