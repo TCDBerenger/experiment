@@ -1,17 +1,23 @@
 #!/usr/bin/env node
 
+
+// Activate debug
+process.env.DEBUG = "*";
+
 var fs = require('fs');
+var express = require('../lib/lilbro');
+var nomnom  = require('nomnom');
+var debug   = require('debug')('server');
 
-var lilbro = require('../lib/lilbro')
-	, nomnom = require('nomnom');
-
+var root = __dirname + '/..';
 var writerFiles = fs.readdirSync(__dirname + '/../lib/writers');
 var writers = writerFiles.map( function(f) { return f.replace(/\.js$/, '') });
+
 
 var opts = nomnom.opts({
 	'png-bug': {
 		full: 'png-bug',
-		default: '/app/data/b.png',
+		default: root + '/heatmap/track.png',
 		help: 'path to the image file to return to clients',
 		metavar: 'FILE'
 	},
@@ -21,18 +27,6 @@ var opts = nomnom.opts({
 		help: 'port to listen for https connections',
 		metavar: 'PORT'
 	},
-	'https-key': {
-		full: 'https-key',
-		default: '/app/data/test-cert/privatekey.pem',
-		help: 'path to the file containing the private key',
-		metavar: 'FILE'
-	},
-	'https-cert': {
-		full: 'https-cert',
-		default: '/app/data/test-cert/certificate.pem',
-		help: 'path to the file containing the secure certificate',
-		metavar: 'FILE'
-	},
 	'http-port': {
 		full: 'http-port',
 		default: 80,
@@ -41,7 +35,7 @@ var opts = nomnom.opts({
 	},
 	'solr-host': {
 		full: 'solr-host',
-		default: process.env.SOLR_HOST,
+		default: (process.env.SOLR_HOST || 'pub.solr.misakai.com'),
 		help: 'solr hostname',
 		metavar: 'HOST'
 	},
@@ -53,7 +47,7 @@ var opts = nomnom.opts({
 	},
 	'client-js-path': {
 		full: 'client-js-path',
-		default: '/app/client/src/',
+		default: root + '/heatmap/js/',
 		help: 'path to find client library sources',
 		metavar: 'DIR'
 	},
@@ -72,15 +66,8 @@ var opts = nomnom.opts({
 	}
 
 }).parseArgs();
+var app = express.createServer(opts);
+var port = parseInt(process.env.HTTP_PORT || opts['http-port'] || 80);
+debug("listening on http port %d", port);
+app.listen(port);
 
-lilbro.initialize(opts);
-
-var http_port = process.env.HTTP_PORT || opts['http-port'];
-lilbro.server.listen(http_port);
-console.log("listening on http port %d", http_port);
-
-var https_port = process.env.HTTPS_PORT || opts['https-port'];
-if (https_port) {
-	lilbro.secure_server.listen(https_port);
-	console.log("listening on https port %d", https_port);
-}

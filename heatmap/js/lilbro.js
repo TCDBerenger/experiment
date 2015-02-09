@@ -162,7 +162,7 @@ LilBro.Event = function (args) {
 		var protocol = window.location.protocol;
 		var src = protocol + '//'
 		                + ((protocol === 'https:') ? this.ssl_server || this.server : this.server)
-		                + '/'
+		                + '/track/'
 		                + event.join('\x01')
 		                + '.png?'
 		                + this.randomHexBlocks(1);
