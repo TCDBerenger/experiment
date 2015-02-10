@@ -66,6 +66,13 @@ var opts = nomnom.opts({
 	}
 
 }).parseArgs();
+
+/*process.env.http_proxy = "www-proxy.scss.tcd.ie:8080";
+require('global-tunnel').initialize({
+  host: 'www-proxy.scss.tcd.ie',
+  port: 8080
+});*/
+
 var app = express.createServer(opts);
 var port = parseInt(process.env.HTTP_PORT || opts['http-port'] || 80);
 debug("listening on http port %d", port);
