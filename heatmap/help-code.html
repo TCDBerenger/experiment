@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>Manycore Experiment</title>
+	<link type="text/css" rel="stylesheet" href="https://s3.amazonaws.com/cdn.misakai.com/www-admin/admin.css">
+</head>
+<body id="main">
+
+
+	<section class="panel panel-shadow">
+	<header class="panel-heading">
+		<h1>About Data Locality</h1>
+	</header> 
+
+	<div id="panel-content" class="panel-body">
+
+		<div class="col-md-12">
+			<p>CPU aches work on the assumption that data that is accessed once will usually be accessed soon again. This kind of behaviour is known as data locality. There are two kinds of locality that are sometimes distinguished:</p>
+
+			<ul>
+				<li><b>Temporal locality</b> means that the program reuses the same data that it recently used, and that therefore is likely to be in the cache.</li>
+
+				<li><b>Spatial locality</b> means that the program uses data close to recently accessed locations. Since the processor loads a chunk of memory around an accessed location into the cache, locations close to recently accessed locations are also likely to be in the cache.</li>
+			</ul>
+
+			<p>It is of course possible for a program exhibit both types of locality at the same time.
+
+			Good data locality is essential for good application performance. Applications with poor data locality reduce the effectiveness of the cache, causing long stall times waiting for memory accesses.
+			</p>
+
+			<img src="http://www.tophatstuff.co.uk/uploaded/20111220014452_cache2.png" />
+		</div>
+
+
+		<div class="panel-footer">
+			<nav>
+			  <ul class="pager">
+			    <li class="next"><a href="eval-code.html">Next <span aria-hidden="true">&rarr;</span></a></li>
+			  </ul>
+			</nav>
+		</div>
+	</div>
+
+	</section> 
+
+</body> 
+</html>

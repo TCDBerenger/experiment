@@ -1,18 +1,21 @@
 {
-    "name": "lil-brother"
-  , "version": "0.0.2"
-  , "private": true
-  , "dependencies": {
-      "nomnom": ">= 1.8.0",
-      "uglify-js": "> 1.x.x",
-      "node-uuid": ">= 0.x.x",
-      "express": "*",
-      "debug" : "*",
-      "global-tunnel": "*"
-  }
-  , "engine": {
+  "name": "lil-brother",
+  "version": "0.0.2",
+  "private": true,
+  "dependencies": {
+    "angular-gist": "*",
+    "debug": "*",
+    "express": "*",
+    "global-tunnel": "*",
+    "node-uuid": ">= 0.x.x",
+    "nomnom": ">= 1.8.0",
+    "uglify-js": "> 1.x.x"
+  },
+  "engine": {
     "node": ">= 0.6.x"
-  }
-  , "bin": { "lilbro": "bin/lilbro" }
-  , "main": "bin/lilbro"
+  },
+  "bin": {
+    "lilbro": "bin/lilbro"
+  },
+  "main": "bin/lilbro"
 }
