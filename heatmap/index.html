@@ -1,141 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	<title>Manycore Experiment</title>
+	<title>Manycore Project</title>
 	<link type="text/css" rel="stylesheet" href="https://s3.amazonaws.com/cdn.misakai.com/www-admin/admin.css">
 </head>
 <body id="main">
-
-
-	<section class="panel panel-shadow">
-	<header class="panel-heading">
-		<h1>Experiment</h1>
-	</header> 
-
-	<div id="panel-content" class="panel-body">
-
-
-    <div class="well">
-      <h4>Goal</h4>
-      <p>The goal of this survey is to identify the awareness and frequency of various <b>parallel performance problems</b>.</p>
-
-      <h4>Scope</h4>
-      <p>
-        For the purpose of this work, we make assumptions
-        about the type of multicore computer where the performance problems occur on. We're looking at the kind of machine that is found
-        on the typical desktop: A machine with multiple cores and a shared
-        memory with hardware cache coherency, and which runs an operating
-        system. We assume a shared-memory programming model based on threads,
-        with locks, barriers, semaphores, critical sections and similar
-        mechanisms as the main synchronization mechanism. The machine might
-        have multiple CPU chips, but all operate on a shared memory with cache
-        coherency.
-
-        The cores of the machine may support hardware multithreading; that is
-        a single core may be able to execute more than one thread either by
-        switching thread every machine cycle (classical multithreading), or by
-        intermixing instructions from more than one thread in the execution
-        pipeline. <a href="https://s3.amazonaws.com/trinity-lab/documents/survey.pdf" target="_blank">[PDF]</a>
-      </p>
+  <div class="panel panel-shadow">
+    <div class="panel-body">
+      <img src="track.png" /> 
     </div>
-
-
-
-      
-    <form role="form" action="/poll/problems">
-
-      <div class="form-group">
-        <label>Email address (only for prize pool)</label>
-        <input ng-model="info.email" type="text" class="form-control" placeholder="Enter your email">
-      </div>
-
-      <div class="form-group">
-        <label>Your age demographic</label>
-        <select ng-model="info.age" class="form-control">
-          <option value="1">18-25 years</option>
-          <option value="2">26-35 years</option>
-          <option value="3">36-45 years</option>
-          <option value="4">46-55 years</option>
-          <option value="5">56-65 years</option>
-          <option value="6">65+ years</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Your gender</label>
-        <select ng-model="info.gender" class="form-control">
-          <option value="1">Male</option>
-          <option value="2">Female</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Highest level of education</label>
-        <select ng-model="info.education" class="form-control">
-          <option value="1">High School or Less</option>
-          <option value="2">Bachelors/Polytechnical Degree</option>
-          <option value="3">Masters Degree</option>
-          <option value="4">Doctoral Degree</option>
-        </select>
-      </div>
-
-
-      <div class="form-group">
-        <label>Self-assessed expertise in parallel programming</label>
-        <select ng-model="info.expertise" class="form-control">
-          <option value="1">Novice</option>
-          <option value="2">Average</option>
-          <option value="3">Above Average</option>
-          <option value="4">Expert</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Years of professional experience</label>
-        <select ng-model="info.experience" class="form-control" >
-          <option value="1">0-5 years</option>
-          <option value="2">6-10 years</option>
-          <option value="3">10+ years</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Informed Consent</label>
-          <ul style="list-style-type: disc; padding: 10px 20px 0 20px; font-size:11px;overflow-y: scroll; height:100px; border: 1px dashed">
-            <li>I understand that my participation in this study will involve using a computer program, answering to survey questions and discussing my actions in one or more retrospective interviews.</li>
-            <li>I understand that my interaction with the system/survey will be logged.</li>
-            <li>I understand that the recorded data will be made anonymous and be accessible to a small team of researcher (i.e. a research team of 4 people) for study purposes.</li>
-            <li>I understand that even though the recorded data will be made anonymous it will not be available to other people outside of the mentioned research team.</li>
-            <li>I understand that participation in this study is entirely voluntary and that I can withdraw from the study at any time without giving a reason.</li>
-            <li>I understand that I am free to ask any questions at any time. I am free to withdraw without providing a reason, or to discuss my concerns with the experimenter.</li>
-            <li>I agree that my data is used for scientific purposes and I have no objection that my data is published in scientific publications in a way that does not reveal my identity.</li>
-            <li>I understand that I can make subsequent contact with the researcher conducting this survey Roman Atachiants (via email: atachiar@scss.tcd.ie) if I wish to obtain a copy of any papers derived from the research.</li>
-            <li>In the extremely unlikely event that illicit activity is reported to me during the survey I will be obliged to report it to appropriate authorities.</li>
-            <li>I understand that if I, or anyone in my family, have a history of epilepsy then I am preceding at my own risk.</li>
-            <li><b>I understand that the information provided by me will be held anonymously so that it is impossible to trace this information back to me individually. In accordance with the Data Protection Act this information may be retained indefinitely</b></li>
-          </ul>
-      </div>
-
-      <div class="checkbox">
-        <label>
-          <input ng-model="done" type="checkbox"  > 
-
-          I have read the <a target="_blank" href="https://s3.amazonaws.com/trinity-lab/documents/survey.pdf">informed consent form</a> and consent to participate in this study conducted by Atachiants Roman in the School of Computer Science and Statistics, Trinity College, Dublin under the supervision of Dr. Gavin Doherty and I confirm that I am over 18 years old.  
-        </label>
-      </div>
-    </form>
-    
-
-		<div class="panel-footer">
-			<nav>
-			  <ul class="pager">
-			    <li class="next"><a href="help-code.html">Begin Experiment <span aria-hidden="true">&rarr;</span></a></li>
-			  </ul>
-			</nav>
-		</div>
-	</div>
-
-	</section> 
-
+  </div>
+  
 </body> 
 </html>
