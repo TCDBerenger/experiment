@@ -1,15 +1,19 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<html ng-app="surveyApp">
 <head>
-	<title>Manycore Project</title>
-	<link type="text/css" rel="stylesheet" href="https://s3.amazonaws.com/cdn.misakai.com/www-admin/admin.css">
+  <title>Manycore Experiment</title>
+  <link type="text/css" rel="stylesheet" href="https://s3.amazonaws.com/cdn.misakai.com/www-admin/admin.css">
+  <link type="text/css" rel="stylesheet" href="css/app.css">
 </head>
-<body id="main">
-  <div class="panel panel-shadow">
-    <div class="panel-body">
-      <img src="track.png" /> 
-    </div>
-  </div>
-  
+<body id="main" ng-controller="AppController">
+
+	<section class="panel panel-shadow" ng-view="">
+
+	</section> 
+  <script type="application/javascript" src="js/ng-main.js"></script>
+  <script type="application/javascript" src="js/ng-route.js"></script>
+  <script type="application/javascript" src="js/ng-gist.js"></script>
+  <script type="application/javascript" src="js/ng-mcq.js"></script>
+  <script type="application/javascript" src="js/app.js"></script>
 </body> 
 </html>

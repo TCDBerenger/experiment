@@ -1,40 +1,115 @@
-angular.module('surveyApp', ['gist', 'mcq'])
-  .controller('MainController', ['$scope', function($scope) {
-
-    $scope.nav = {
-      current: 0,
-      min: 0, 
-      max: 10
-    };
-
-    $scope.currentPage = 1;
-    $scope.maxPage = 4;
-
-  	$scope.gists = {
-  		a: "Kelindar/fe30dcf73184dafce005",
-  		b: "Kelindar/fe30dcf73184dafce005"
-  	};
-
-    $scope.questions = [
-      {
-        id: 1, text: 'Select the most likely efficiency assessment:',
-        choices: [
-          "Program A will finish before Program B.", 
-          "Program B will finish before Program A.", 
-          "They both would finish at about the same time.", 
-          "I don't know / I need more data."
-        ]
-      },
-      {
-        id: 2, text: 'Select the most likely data locality assessment:',
-        choices: [
-          "Program A has better data locality than Program B.",
-          "Program B has better data locality than Program A.", 
-          "They would have a similar data locality pattern.",
-          "I don't know / I need more data."
-        ]
-      },
-    ];
-
-
+var app = angular.module('surveyApp', ['gist', 'mcq', 'ngRoute']);
+app .config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/index', { templateUrl: 'tpl/help-intro.html'}).
+      when('/about-code', { templateUrl: 'tpl/help-code.html'}).
+      when('/about-tool', { templateUrl: 'tpl/help-tool.html'}).
+      when('/eval-code', { templateUrl: 'tpl/eval-code.html'}).
+      when('/eval-tool', { templateUrl: 'tpl/eval-tool.html'}).
+      when('/thankyou', {templateUrl: 'tpl/thankyou.html'}).
+      otherwise({
+        redirectTo: '/index'
+      });
   }]);
+
+// The main controller
+app.controller('AppController', ['$scope', '$http', '$location', '$sce', function($scope, $http, $location, $sce) {
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  }
+
+  // Load the code snippets
+  $http.get('https://dl.dropboxusercontent.com/u/14718379/survey/src-data.json').then(function(res){
+    $scope.srcData = res.data;
+  });
+
+  // Load the questions on the code
+  $http.get('https://dl.dropboxusercontent.com/u/14718379/survey/src-survey.json').then(function(res){
+    $scope.srcSurvey = res.data;
+  });
+
+  // Load the visualisation URLs
+  $http.get('https://dl.dropboxusercontent.com/u/14718379/survey/vis-data.json').then(function(res){
+    $scope.visData = res.data;
+  });
+
+  // Load the questions on the code
+  $http.get('https://dl.dropboxusercontent.com/u/14718379/survey/vis-survey.json').then(function(res){
+    $scope.visSurvey = res.data;
+  });
+
+  // Information about the participant
+  $scope.info = {
+    date: new Date(),
+    email: "",
+    age: null,
+    gender: null,
+    education: null,
+    expertise: null,
+    experience: null,
+    consent: false
+  };
+
+  // Current page
+  $scope.current = 0;
+
+  // Answers for a page
+  $scope.srcAnsw = {};
+  $scope.visAnsw = {};
+
+  // Moves to the next page on the code experiment
+  $scope.srcNext = function(){
+    // Write the answers to our server
+    $scope.write({
+      type: 'src', time: new Date(), page: $scope.current, result: $scope.srcAnsw
+    });
+
+    // Go the the next page
+    if($scope.current >= ($scope.srcData.data.length - 1)){
+      $location.path("/about-tool");
+      $scope.current = 0;
+    }else{
+      $scope.current++;
+    }
+    $scope.clear();
+  };
+
+  // Moves to the next page on the code experiment
+  $scope.visNext = function(){
+    // Write the answers to our server
+    $scope.write({
+      type: 'vis', time: new Date(), page: $scope.current, result: $scope.visAnsw
+    });
+
+    // Go to the next page
+    if($scope.current >= ($scope.visData.length - 1)){
+      $location.path("/thankyou");
+      $scope.current = 0;
+    }else{
+      $scope.current++;
+    }
+    $scope.clear();
+  };
+
+  // Clears everything that is required
+  $scope.clear = function(){
+    $scope.srcAnsw = {};
+    $scope.visAnsw = {};
+    var chk = document.getElementsByClassName("choice");
+    for(var i=0;i<chk.length;i++)
+      chk[i].checked = false;
+  }
+
+  // Writes the data object to the log file
+  $scope.write = function(payload){
+    console.log('WRITE: ' + JSON.stringify(payload));
+    $http.post('http://multicore.scss.tcd.ie/write', payload)
+      .success(function(data, status, headers, config) {
+        console.log('HTTP Status: ' + status); 
+      });
+  };
+
+
+}]);
+
