@@ -1,20 +1,22 @@
 var app = angular.module('surveyApp', ['gist', 'mcq', 'ngRoute']);
-app .config(['$routeProvider',
-  function($routeProvider) {
+app.config(['$routeProvider', '$sceDelegateProvider',
+  function($routeProvider, $sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist(['**']);
     $routeProvider.
-      when('/index', { templateUrl: 'tpl/help-intro.html'}).
-      when('/about-code', { templateUrl: 'tpl/help-code.html'}).
-      when('/about-tool', { templateUrl: 'tpl/help-tool.html'}).
-      when('/eval-code', { templateUrl: 'tpl/eval-code.html'}).
-      when('/eval-tool', { templateUrl: 'tpl/eval-tool.html'}).
-      when('/thankyou', {templateUrl: 'tpl/thankyou.html'}).
+      when('/index', { templateUrl: 'https://dl.dropboxusercontent.com/u/14718379/survey/tpl/help-intro.html'}).
+      when('/about-code', { templateUrl: 'https://dl.dropboxusercontent.com/u/14718379/survey/tpl/help-code.html'}).
+      when('/about-tool', { templateUrl: 'https://dl.dropboxusercontent.com/u/14718379/survey/tpl/help-tool.html'}).
+      when('/eval-code', { templateUrl: 'https://dl.dropboxusercontent.com/u/14718379/survey/tpl/eval-code.html'}).
+      when('/eval-tool', { templateUrl: 'https://dl.dropboxusercontent.com/u/14718379/survey/tpl/eval-tool.html'}).
+      when('/thankyou', {templateUrl: 'https://dl.dropboxusercontent.com/u/14718379/survey/tpl/thankyou.html'}).
       otherwise({
         redirectTo: '/index'
       });
   }]);
 
 // The main controller
-app.controller('AppController', ['$scope', '$http', '$location', '$sce', function($scope, $http, $location, $sce) {
+app.controller('AppController', ['$scope', '$http', '$location', '$sce', 
+  function($scope, $http, $location, $sce) {
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   }
