@@ -101,14 +101,19 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
     var chk = document.getElementsByClassName("choice");
     for(var i=0;i<chk.length;i++)
       chk[i].checked = false;
+    var txt = document.getElementsByClassName("open-question");
+    for(var i=0;i<txt.length;i++)
+      txt[i].value = "";
+    window.scrollTo(0, 0);
   }
 
   // Writes the data object to the log file
   $scope.write = function(payload){
     console.log('WRITE: ' + JSON.stringify(payload));
-    $http.post('http://multicore.scss.tcd.ie/write', payload)
+    var url = window.location.href.indexOf("manycore") > -1 ? "http://manycore.scss.tcd.ie" : "http://multicore.scss.tcd.ie";
+    $http.post(url + '/write', payload)
       .success(function(data, status, headers, config) {
-        console.log('HTTP Status: ' + status); 
+        console.log('WRITE: ' + status); 
       });
   };
 
