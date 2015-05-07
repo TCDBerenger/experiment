@@ -14,6 +14,14 @@ app.config(['$routeProvider', '$sceDelegateProvider',
       });
   }]);
 
+// Experiment group
+var groupNumber = localStorage.getItem('group');
+if (groupNumber == null){
+    groupNumber = Math.floor(Math.random() * 4)
+    localStorage.setItem('group', groupNumber);
+}
+console.log("Group: " + groupNumber);
+
 // The main controller
 app.controller('AppController', ['$scope', '$http', '$location', '$sce', 
   function($scope, $http, $location, $sce) {
@@ -23,7 +31,10 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
 
   // Load the code snippets
   $http.get('https://dl.dropboxusercontent.com/u/14718379/survey/src-data.json').then(function(res){
+    $scope.group = res.data.groups[groupNumber];
+    $scope.groupHalf = $scope.group.length / 2;
     $scope.srcData = res.data;
+    $scope.current = $scope.group[0];
   });
 
   // Load the questions on the code
@@ -54,6 +65,7 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
   };
 
   // Current page
+  $scope.problem = 0;
   $scope.current = 0;
 
   // Answers for a page
@@ -64,16 +76,15 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
   $scope.srcNext = function(){
     // Write the answers to our server
     $scope.write({
-      type: 'src', time: new Date(), page: $scope.current, result: $scope.srcAnsw
+      type: 'src', time: new Date(), problem: $scope.current, result: $scope.srcAnsw
     });
 
     // Go the the next page
-    if($scope.current >= ($scope.srcData.data.length - 1)){
+    if($scope.problem >= ($scope.groupHalf - 1)){
       $location.path("/about-tool");
-      $scope.current = 0;
-    }else{
-      $scope.current++;
     }
+    $scope.problem++;
+    $scope.current = $scope.group[$scope.problem];
     $scope.clear();
   };
 
@@ -81,15 +92,15 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
   $scope.visNext = function(){
     // Write the answers to our server
     $scope.write({
-      type: 'vis', time: new Date(), page: $scope.current, result: $scope.visAnsw
+      type: 'vis', time: new Date(), problem: $scope.current, result: $scope.visAnsw
     });
 
     // Go to the next page
-    if($scope.current >= ($scope.visData.length - 1)){
+    if($scope.problem >= ($scope.group.length - 1)){
       $location.path("/thankyou");
-      $scope.current = 0;
     }else{
-      $scope.current++;
+      $scope.problem++;
+      $scope.current = $scope.group[$scope.problem];
     }
     $scope.clear();
   };
@@ -104,6 +115,8 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
     var txt = document.getElementsByClassName("open-question");
     for(var i=0;i<txt.length;i++)
       txt[i].value = "";
+    var cnf = document.getElementsByClassName("confidence");
+      cnf[i].value = 0;
     window.scrollTo(0, 0);
   }
 
@@ -119,4 +132,3 @@ app.controller('AppController', ['$scope', '$http', '$location', '$sce',
 
 
 }]);
-
