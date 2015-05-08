@@ -29,6 +29,7 @@ module.directive('mcq', function ($parse) {
         }
       },
       template: '<div class="col-md-12" ng-model="value">'
+        + '   <hr />'
         + '   <h4>{{text}}</h4>'
         + '   <div ng-if="options.length > 0" class="radio" ng-repeat="opt in options">'
         + '      <label>'
