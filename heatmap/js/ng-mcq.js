@@ -38,7 +38,7 @@ module.directive('mcq', function ($parse) {
         + '   </div>'
         + '   <div ng-if="options.length > 0">'
         + '     <label>How confident are you in your answer?</label>'
-        +'      <select class="form-control confidence" ng-keyup="confidence(1, $event)" ng-click="confidence(1, $event)">'
+        +'      <select class="form-control confidence" ng-keyup="confidence(1, $event)" ng-mouseleave="confidence(1, $event)" ng-click="confidence(1, $event)">'
         + '     <option value="0">I don\'t know.</option>'
         + '     <option value="+2">Very Confident. I don\'t need any additional information to improve my answers.</option>'
         + '     <option value="+1">Confident, but I might use additional information to improve my answers. </option>'
